@@ -4,6 +4,10 @@ This branch is only for academic purpose. However, if any chance that this proje
 Team members:
 -------------
 
-Ham Wen Hong
+ingram1107
 
 Law Shun Ze
+
+limzhenbeng
+
+weegen12
