@@ -8,31 +8,113 @@
 
 #include <stdio.h>
 
-int main(void) {
-    /*int dr_hidayati[][1] = {1, 2};*/
-    char usr;
+#define Mon	1
+#define Tues	2
+#define	Wed	3
+#define Thurs	4
+#define Fri	5
+#define	Sat	6
+#define Sun	0
 
-    do {    /* print out the lecturers' consultation hour table*/
-      printf("\tLecturers' Consultation Hour\n\n");
-      printf(" ---------------------------------------------\n");
-      printf("| Dr. Hidayati\t|\tMon\t  |\t2-4pm |\n");
-      printf("|\t\t|\tTues\t  |\t2-4pm |\n");
-      printf("|---------------|-----------------|-----------|\n");
-      printf("| Dr. Azlina\t|\tTues\t  |\t3-4pm |\n");
-      printf("|\t\t|\tWed\t  |\t2-4pm |\n");
-      printf("|\t\t|\tThur\t  |\t3-4pm |\n");
-      printf(" ---------------------------------------------\n\n");
-      printf("Press x then Enter to exit the program\n");
-      scanf(" %c", &usr);
-    } while (usr != 'x');   /* exit the program when user input 'x' */
-    /*
-     *  Lecturers' available consultation hour schedule
-     *
-     *  Dr Hidayati | Mon   | 2-4pm
-     *              | Tues  | 2-4pm
-     *  ---------------------------
-     *  Dr Azlina   | Tues  | 3-4pm
-     *              | Wed   | 2-4pm
-     *              | Thur  | 3-4pm
-     */
+struct student {
+	char name[20];
+	int stdid[10];
+	char major[2];
+};
+
+typedef struct student record;
+record student1;
+
+void schedule(void);
+void booking(void);
+void command(void);
+void info(void);
+
+int main(void) 
+{
+    	char usr;
+	char *pUsr = &usr;
+
+    	do {    
+		schedule();
+		command();
+		scanf(" %c", pUsr);
+		if (*pUsr == 'c') {
+			booking();
+			info();
+			command();
+			scanf(" %c", pUsr);
+			if (*pUsr == 'x')
+				break;
+    		}
+	} while (*pUsr != 'x');   /* exit the program when user input 'x' */
+    	
+	/*
+    	 *  Lecturers' available consultation hour schedule
+    	 *
+    	 *  Dr Hidayati | Mon   | 2-4pm
+    	 *              | Tues  | 2-4pm
+    	 *  ---------------------------
+    	 *  Dr Azlina   | Tues  | 3-4pm
+    	 *              | Wed   | 2-4pm
+    	 *              | Thur  | 3-4pm
+    	 */
+}
+
+/* command list	*/
+void command(void)
+{
+	printf("Press x then Enter to exit the program\n");
+	printf("Press c then Enter to book a ticket\n");
+}
+
+/* print out the lecturers' consultation hour table	*/
+void schedule(void)
+{
+	printf("\tLecturers' Consultation Hour\n\n");
+      	printf(" ---------------------------------------------\n");
+      	printf("| Dr. Hidayati\t|\tMon\t  |\t2-4pm |\n");
+      	printf("|\t\t|\tTues\t  |\t2-4pm |\n");
+      	printf("|---------------|-----------------|-----------|\n");
+      	printf("| Dr. Azlina\t|\tTues\t  |\t3-4pm |\n");
+      	printf("|\t\t|\tWed\t  |\t2-4pm |\n");
+      	printf("|\t\t|\tThur\t  |\t3-4pm |\n");
+      	printf(" ---------------------------------------------\n\n");
+}
+
+/* allow booking	*/
+void booking(void)
+{
+	extern int main(void);
+	int i, j;
+	int dr_hidayati[][2] = {
+		{Mon,	2},
+		{Mon, 	4},
+		{Tues, 	2},
+		{Tues, 	4}
+	};
+	int dr_azlina[][2] = {
+		{Tues, 	3},
+		{Tues, 	4},
+		{Wed,	2},
+		{Wed,	4},
+		{Thurs,	3},
+		{Thurs,	4}
+	};
+	int *pL1 = &dr_hidayati[0][0];
+	int *pL2 = &dr_azlina[0][0];
+	printf("This is the booking session.\n");
+	printf("Please check your ticket's information.\n");
+	printf("Select slot from the schedule.");
+}
+
+/* scan user input	*/
+void info(void)
+{
+	printf("Enter your name (Use underscore to replace white spaces): ");
+	scanf("%s", student1.name);
+	printf("Enter your student ID: ");
+	scanf("%s", student1.stdid);
+	printf("Enter your major (TE/ME/RE): ");
+	scanf("%s", student1.major);
 }
