@@ -7,6 +7,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 #define Mon	1
 #define Tues	2
@@ -15,13 +16,16 @@
 #define Fri	5
 #define	Sat	6
 #define Sun	0
+#define MAXCHAR 100
 
+/* creat block of struct to record student info	*/
 struct student {
 	char name[20];
 	int stdid[10];
 	char major[2];
 };
 
+/* record = struct student	*/
 typedef struct student record;
 record student1;
 
@@ -46,7 +50,12 @@ int main(void)
 			scanf(" %c", pUsr);
 			if (*pUsr == 'x')
 				break;
-    		}
+    		} else if (*pUsr == 'x') {
+			printf("Exit the program.\n");
+			printf("Thank for coming!");
+		}
+		else
+			printf("Error: Unknown Command\n");
 	} while (*pUsr != 'x');   /* exit the program when user input 'x' */
     	
 	/*
@@ -103,7 +112,21 @@ void booking(void)
 	};
 	int *pL1 = &dr_hidayati[0][0];
 	int *pL2 = &dr_azlina[0][0];
+	char cdr_hidayati[] = "Dr._Hidayati";
+	char cdr_azlina[] = "Dr._Azlina";
+	char s[MAXCHAR];
+
 	printf("This is the booking session.\n");
+	printf("Select a lecturer you pefer to meet (Use underscore to represent white spaces): ");
+	scanf("%s", s);
+	if (strcmp(s, cdr_hidayati) == 0) { /* compare the input of user to the available string*/
+		printf("Book a slot: ");
+	}
+	else if (strcmp(s, cdr_azlina) == 0){
+		printf("Book a slot: ");
+	}
+	else
+		printf("Error: Unknown Lecturer\n");
 	printf("Please check your ticket's information.\n");
 	printf("Select slot from the schedule.");
 }
@@ -111,7 +134,7 @@ void booking(void)
 /* scan user input	*/
 void info(void)
 {
-	printf("Enter your name (Use underscore to replace white spaces): ");
+	printf("Enter your name (Use underscore to represent white spaces): ");
 	scanf("%s", student1.name);
 	printf("Enter your student ID: ");
 	scanf("%s", student1.stdid);
