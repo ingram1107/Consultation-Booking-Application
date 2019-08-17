@@ -120,20 +120,44 @@ void booking(void)
 	printf("Select a lecturer you pefer to meet (Use underscore to represent white spaces): ");
 	scanf("%s", s);
 	if (strcmp(s, cdr_hidayati) == 0) { /* compare the input of user to the available string*/
-		printf("Monday = 0, Tuesday = 1\n");
+		printf("Monday = 1, Tuesday = 2\n");
 		printf("Each block have 4 slot available\n");
 		printf("Four block available\n");
-		printf("Book a slot: ");
-		scanf("%d %d", &i, &j);
-		if (i == 0) {
-			if (j == 0) {
+		printf("Book slot\n ");
+		printf("Weekday: ");
+		scanf("%d", &i);
+		printf("Block Number: ");
+		scanf("%d", &j);
+		if (i == 1) {
+			if (j == 1) {
 			}
-			else if (j == 1) {
+			else if (j == 2) {
+			}
+		}
+		else if (i == 2) {
+			if (j == 1) {
+			}
+			else if (j == 3) {
 			}
 		}
 	}
 	else if (strcmp(s, cdr_azlina) == 0){
-		printf("Book a slot: ");
+		printf("Tuesday = 2, Wednesday = 3, Thursday = 4\n");
+		printf("Each block have 4 slot available\n");
+		printf("Four block available\n");
+		printf("Book slot\n ");
+		printf("Weekday: ");
+		scanf("%d", &i);
+		printf("Block Number: ");
+		scanf("%d", &j);
+		if (i == 2) {}
+		else if (i == 3) {
+			if (j == 1) {
+			}
+			else if (j == 2) {
+			}
+		}
+		else if (i == 4) {}
 	}
 	else
 		printf("Error: Unknown Lecturer\n");
