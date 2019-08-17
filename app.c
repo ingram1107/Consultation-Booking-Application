@@ -29,10 +29,27 @@ struct student {
 typedef struct student record;
 record student1;
 
+/* lecturers' available slot	*/
+int dr_hidayati[][2] = {
+		{Mon,	2},
+		{Mon, 	3},
+		{Tues, 	2},
+		{Tues, 	3}
+	};
+int dr_azlina[][2] = {
+		{Tues, 	3},
+		{Wed,	2},
+		{Wed,	3},
+		{Thurs,	3},
+	};
+int *pL1 = &dr_hidayati[0][0];
+int *pL2 = &dr_azlina[0][0];
+
 void schedule(void);
 void booking(void);
 void command(void);
 void info(void);
+/*int check_available(char [])*/
 
 int main(void) 
 {
@@ -94,24 +111,7 @@ void schedule(void)
 /* allow booking	*/
 void booking(void)
 {
-	extern int main(void);
-	int i, j;
-	int dr_hidayati[][2] = {
-		{Mon,	2},
-		{Mon, 	4},
-		{Tues, 	2},
-		{Tues, 	4}
-	};
-	int dr_azlina[][2] = {
-		{Tues, 	3},
-		{Tues, 	4},
-		{Wed,	2},
-		{Wed,	4},
-		{Thurs,	3},
-		{Thurs,	4}
-	};
-	int *pL1 = &dr_hidayati[0][0];
-	int *pL2 = &dr_azlina[0][0];
+	int i, j, k;
 	char cdr_hidayati[] = "Dr._Hidayati";
 	char cdr_azlina[] = "Dr._Azlina";
 	char s[MAXCHAR];
@@ -120,7 +120,17 @@ void booking(void)
 	printf("Select a lecturer you pefer to meet (Use underscore to represent white spaces): ");
 	scanf("%s", s);
 	if (strcmp(s, cdr_hidayati) == 0) { /* compare the input of user to the available string*/
+		printf("Monday = 0, Tuesday = 1\n");
+		printf("Each block have 4 slot available\n");
+		printf("Four block available\n");
 		printf("Book a slot: ");
+		scanf("%d %d", &i, &j);
+		if (i == 0) {
+			if (j == 0) {
+			}
+			else if (j == 1) {
+			}
+		}
 	}
 	else if (strcmp(s, cdr_azlina) == 0){
 		printf("Book a slot: ");
@@ -141,3 +151,5 @@ void info(void)
 	printf("Enter your major (TE/ME/RE): ");
 	scanf("%s", student1.major);
 }
+
+/* int check_available(char s[])	*/
