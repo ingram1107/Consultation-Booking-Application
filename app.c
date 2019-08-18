@@ -15,8 +15,10 @@
 #define Thurs	4
 #define Fri	5
 #define	Sat	6
-#define Sun	0
+#define Sun	7
 #define MAXCHAR 100
+#define FALSE	-1
+#define	TRUE	0
 
 /* creat block of struct to record student info	*/
 struct student {
@@ -42,14 +44,30 @@ int dr_azlina[][2] = {
 		{Wed,	3},
 		{Thurs,	3},
 	};
-int *pL1 = &dr_hidayati[0][0];
-int *pL2 = &dr_azlina[0][0];
+
+int *pL1_00 = &dr_hidayati[0][0];
+int *pL1_01 = &dr_hidayati[0][1];
+int *pL1_10 = &dr_hidayati[1][0];
+int *pL1_11 = &dr_hidayati[1][1];
+int *pL1_20 = &dr_hidayati[2][0];
+int *pL1_21 = &dr_hidayati[2][1];
+int *pL1_30 = &dr_hidayati[3][0];
+int *pL1_31 = &dr_hidayati[3][1];
+int *pL2_00 = &dr_azlina[0][0];
+int *pL2_01 = &dr_azlina[0][1];
+int *pL2_10 = &dr_azlina[1][0];
+int *pL2_11 = &dr_azlina[1][1];
+int *pL2_20 = &dr_azlina[2][0];
+int *pL2_21 = &dr_azlina[2][1];
+int *pL2_30 = &dr_azlina[3][0];
+int *pL2_31 = &dr_azlina[3][1];
+
 
 void schedule(void);
 void booking(void);
 void command(void);
 void info(void);
-/*int check_available(char [])*/
+int check_availability(int *);
 
 int main(void) 
 {
@@ -63,17 +81,16 @@ int main(void)
 		if (*pUsr == 'c') {
 			booking();
 			info();
-			command();
-			scanf(" %c", pUsr);
-			if (*pUsr == 'x')
-				break;
-    		} else if (*pUsr == 'x') {
+		}
+		else if (*pUsr == 'x') {
 			printf("Exit the program.\n");
 			printf("Thank for coming!");
+			break;
 		}
 		else
 			printf("Error: Unknown Command\n");
-	} while (*pUsr != 'x');   /* exit the program when user input 'x' */
+	} while (*pUsr != 'x')   /* exit the program when user input 'x' */
+		;
     	
 	/*
     	 *  Lecturers' available consultation hour schedule
@@ -115,6 +132,11 @@ void booking(void)
 	char cdr_hidayati[] = "Dr._Hidayati";
 	char cdr_azlina[] = "Dr._Azlina";
 	char s[MAXCHAR];
+	int *pL1_00 = &dr_hidayati[0][0];
+	int *pL1_01 = &dr_hidayati[0][1];
+	int *pL1_10 = &dr_hidayati[1][0];
+	int *pL1_11 = &dr_hidayati[1][0];
+
 
 	printf("This is the booking session.\n");
 	printf("Select a lecturer you pefer to meet (Use underscore to represent white spaces): ");
@@ -123,22 +145,82 @@ void booking(void)
 		printf("Monday = 1, Tuesday = 2\n");
 		printf("Each block have 4 slot available\n");
 		printf("Four block available\n");
-		printf("Book slot\n ");
+		printf("Book slot\n");
 		printf("Weekday: ");
 		scanf("%d", &i);
 		printf("Block Number: ");
 		scanf("%d", &j);
 		if (i == 1) {
 			if (j == 1) {
+				if (check_availability(pL1_01) == FALSE)
+					booking();
+				else if (*pL1_00 == *pL1_10 == FALSE) {
+					printf("Error: Current Weekday Full\n");
+					schedule();
+					printf("Please select another weekday\n");
+					booking();
+				}
+				else {
+					*pL1_00 = *pL1_01 = FALSE;
+					printf("Successful Booking!!\n");
+				}
 			}
 			else if (j == 2) {
+				if (check_availability(pL1_11) FALSE)
+					booking;
+				else if (*pL1_00 == *pL1_10 == FALSE) {
+					printf("Error: Current Weekday Full\n");
+					schedule();
+					printf("Please select another weekday\n");
+					booking();
+				}
+				else {
+					*pL1_10 = *pL1_11 = FALSE;
+					printf("Successful Booking!!\n");
+				}
+			}
+			else {
+				printf("Error: Unknow Block\n");
+				booking();
 			}
 		}
 		else if (i == 2) {
 			if (j == 1) {
+				if (check_availability(pL1_21) == FALSE)
+					booking();
+				else if (*pL1_20 == *pL1_30 == FALSE) {
+					printf("Error: Current Weekday Full\n");
+					schedule();
+					printf("Please select another weekday\n");
+					booking();
+				}
+				else {
+					*pL1_20 = *pL1_21 = FALSE;
+					printf("Successful Booking!!\n");
+				}
 			}
-			else if (j == 3) {
+			else if (j == 2) {
+				if (check_availability(pL1_31) == FALSE)
+					booking();
+				else if (*pL1_20 == *pL1_30 == FALSE) {
+					printf("Error: Current Weekday Full\n");
+					schedule();
+					printf("Please select another weekday\n");
+					booking();
+				}
+				else {
+					*pL1_30 = *pL1_31 = FALSE;
+					printf("Successful Booking!!\n");
+				}
 			}
+			else {
+				printf("Error: Unknow Block\n");
+				booking();
+			}
+		}
+		else {
+			printf("Error: Other Weekday Not Available\n");
+			booking();
 		}
 	}
 	else if (strcmp(s, cdr_azlina) == 0){
@@ -150,19 +232,76 @@ void booking(void)
 		scanf("%d", &i);
 		printf("Block Number: ");
 		scanf("%d", &j);
-		if (i == 2) {}
-		else if (i == 3) {
-			if (j == 1) {
+		if (i == 2) {
+			if (check_availability(pL2_01) == FALSE)
+				booking();
+			else if (*pL2_00 == FALSE) {
+				printf("Error: Current Weekday Full\n");
+				schedule();
+				printf("Please select another weekday\n");
+				booking();
 			}
-			else if (j == 2) {
+			else {
+				*pL2_00 = *pL2_01 = FALSE;
+				printf("Successful Booking!!\n");
 			}
 		}
-		else if (i == 4) {}
+		else if (i == 3) {
+			if (j == 1) {
+				if (check_availability(pL2_11) == FALSE)
+					booking();
+				else if (*pL2_10 == *pL2_20 == FALSE) {
+					printf("Error: Current Weekday Full\n");
+					schedule();
+					printf("Please select another weekday\n");
+					booking();
+				}
+				else {
+					*pL2_10 = *pL2_11 = FALSE;
+					printf("Successful Booking!!\n");
+				}
+			}
+			else if (j == 2) {
+				if (check_availability(pL2_21) == FALSE)
+					booking();
+				else if (*pL1_10 == *pL1_20 == FALSE) {
+					printf("Error: Current Weekday Full\n");
+					schedule();
+					printf("Please select another weekday\n");
+					booking();
+				}
+				else {
+					*pL1_20 = *pL1_21 = FALSE;
+					printf("Successful Booking!!\n");
+				}
+			}
+			else {
+				printf("Error: Unknow Block\n");
+				booking();
+			}
+		}
+		else if (i == 4) {
+			if (check_availability(pL2_31) == FALSE)
+				booking();
+			else if (*pL2_30 == FALSE) {
+				printf("Error: Current Weekday Full\n");
+				schedule();
+				printf("Please select another weekday\n");
+				booking();
+			}
+			else {
+				*pL2_30 = *pL2_31 = FALSE;
+				printf("Successful Booking!!\n");
+			}
+		}
+		else {
+			printf("Error: Other Weekday Not Available\n");
+			booking();
+		}
 	}
 	else
 		printf("Error: Unknown Lecturer\n");
 	printf("Please check your ticket's information.\n");
-	printf("Select slot from the schedule.");
 }
 
 /* scan user input	*/
@@ -176,4 +315,14 @@ void info(void)
 	scanf("%s", student1.major);
 }
 
-/* int check_available(char s[])	*/
+int check_availability(int *s)
+{
+	if (*s == FALSE) {
+		printf("Error: Slot Full\n");
+		schedule();
+		printf("Please select another slot\n");
+		return FALSE;
+	}
+	else
+		return TRUE;
+}
