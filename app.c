@@ -44,7 +44,6 @@ int dr_azlina[][2] = {
 		{Wed,	3},
 		{Thurs,	3},
 	};
-
 int *pL1_00 = &dr_hidayati[0][0];
 int *pL1_01 = &dr_hidayati[0][1];
 int *pL1_10 = &dr_hidayati[1][0];
@@ -63,11 +62,13 @@ int *pL2_30 = &dr_azlina[3][0];
 int *pL2_31 = &dr_azlina[3][1];
 
 
+
 void schedule(void);
 void booking(void);
 void command(void);
 void info(void);
 int check_availability(int *);
+int slot_availability(int *);
 
 int main(void) 
 {
@@ -336,4 +337,16 @@ int check_availability(int *s)
 	}
 	else
 		return TRUE;
+}
+
+int slot_availibity(int *s)
+{
+	int i = 0;
+
+	++i;
+
+	if (i > 4) {
+		return *s = FALSE;
+	}
+	return i;
 }
