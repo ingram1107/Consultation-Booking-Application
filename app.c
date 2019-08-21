@@ -17,19 +17,21 @@
 #define	Sat	6
 #define Sun	7
 #define MAXCHAR 100
+#define MAXSTD	100
 #define FALSE	-1
 #define	TRUE	0
 
 /* creat block of struct to record student info	*/
+int k = 0;
 struct student {
 	char name[20];
 	int stdid[10];
 	char major[2];
+	char *lecturer;
+	char weekday[9];
 };
+struct student record[MAXSTD];
 
-/* record = struct student	*/
-typedef struct student record;
-record student1;
 
 /* lecturers' available slot	*/
 int dr_hidayati[][2] = {
@@ -67,6 +69,7 @@ void schedule(void);
 void booking(void);
 void command(void);
 void info(void);
+void ticket(void);
 int check_availability(int *);
 int slot_availability(int *);
 
@@ -163,12 +166,14 @@ void booking(void)
 				else {
 					*pL1_00 = *pL1_01 = FALSE;
 					info();
+					record[k].lecturer = cdr_hidayati;
+					strcpy(record[k].weekday, "Monday");
 					printf("Successful Booking!!\n");
 				}
 			}
 			else if (j == 2) {
-				if (check_availability(pL1_11) FALSE)
-					booking;
+				if (check_availability(pL1_11) == FALSE)
+					booking();
 				else if (*pL1_00 == *pL1_10 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					schedule();
@@ -178,6 +183,8 @@ void booking(void)
 				else {
 					*pL1_10 = *pL1_11 = FALSE;
 					info();
+					record[k].lecturer = cdr_hidayati;
+					strcpy(record[k].weekday, "Monday");
 					printf("Successful Booking!!\n");
 				}
 			}
@@ -201,6 +208,8 @@ void booking(void)
 				else {
 					*pL1_20 = *pL1_21 = FALSE;
 					info();
+					record[k].lecturer = cdr_hidayati;
+					strcpy(record[k].weekday, "Tuesday");
 					printf("Successful Booking!!\n");
 				}
 			}
@@ -216,6 +225,8 @@ void booking(void)
 				else {
 					*pL1_30 = *pL1_31 = FALSE;
 					info();
+					record[k].lecturer = cdr_hidayati;
+					strcpy(record[k].weekday, "Tuesday");
 					printf("Successful Booking!!\n");
 				}
 			}
@@ -223,10 +234,6 @@ void booking(void)
 				printf("Error: Unknow Block\n");
 				booking();
 			}
-		}
-		else {
-			printf("Error: Other Weekday Not Available\n");
-			booking();
 		}
 	}
 	else if (strcmp(s, cdr_azlina) == 0){
@@ -250,6 +257,8 @@ void booking(void)
 			else {
 				*pL2_00 = *pL2_01 = FALSE;
 				info();
+				record[k].lecturer = cdr_azlina;
+				strcpy(record[k].weekday, "Tuesday");
 				printf("Successful Booking!!\n");
 			}
 		}
@@ -268,6 +277,8 @@ void booking(void)
 				else {
 					*pL2_10 = *pL2_11 = FALSE;
 					info();
+					record[k].lecturer = cdr_azlina;
+					strcpy(record[k].weekday, "Wednesday");
 					printf("Successful Booking!!\n");
 				}
 			}
@@ -283,6 +294,8 @@ void booking(void)
 				else {
 					*pL2_20 = *pL2_21 = FALSE;
 					info();
+					record[k].lecturer = cdr_azlina;
+					strcpy(record[k].weekday, "Wednesday");
 					printf("Successful Booking!!\n");
 				}
 			}
@@ -303,6 +316,8 @@ void booking(void)
 			else {
 				*pL2_30 = *pL2_31 = FALSE;
 				info();
+				record[k].lecturer = cdr_azlina;
+				strcpy(record[k].weekday, "Thursday");
 				printf("Successful Booking!!\n");
 			}
 		}
@@ -311,20 +326,33 @@ void booking(void)
 			booking();
 		}
 	}
-	else
+	else {
 		printf("Error: Unknown Lecturer\n");
+		booking();
+	}
 	printf("Please check your ticket's information.\n");
+	ticket();
+	k++;
 }
 
 /* scan user input	*/
 void info(void)
 {
 	printf("Enter your name (Use underscore to represent white spaces): ");
-	scanf("%s", student1.name);
+	scanf("%s", record[k].name);
 	printf("Enter your student ID: ");
-	scanf("%s", student1.stdid);
+	scanf("%s", record[k].stdid);
 	printf("Enter your major (TE/ME/RE): ");
-	scanf("%s", student1.major);
+	scanf("%s", record[k].major);
+}
+
+void ticket(void)
+{
+	printf("Name\t\tStudent ID\tMajor\n");
+	printf("%s\t%s\t%s\n\n", record[k].name, record[k].stdid, record[k].major);
+	printf("Booked Schedule:\n");
+	printf("Lecturer\tWeekday\t\n");
+	printf("%s\t%s\t\n", record[k].lecturer, record[k].weekday);	
 }
 
 int check_availability(int *s)
