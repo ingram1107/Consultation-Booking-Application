@@ -29,9 +29,10 @@ struct student {
 	char major[2];
 	char *lecturer;
 	char weekday[9];
+	int block;
+	int slot;
 };
 struct student record[MAXSTD];
-
 
 /* lecturers' available slot	*/
 int dr_hidayati[][2] = {
@@ -46,6 +47,8 @@ int dr_azlina[][2] = {
 		{Wed,	3},
 		{Thurs,	3},
 	};
+char cdr_hidayati[] = "Dr._Hidayati";
+char cdr_azlina[] = "Dr._Azlina";
 int *pL1_00 = &dr_hidayati[0][0];
 int *pL1_01 = &dr_hidayati[0][1];
 int *pL1_10 = &dr_hidayati[1][0];
@@ -63,15 +66,14 @@ int *pL2_21 = &dr_azlina[2][1];
 int *pL2_30 = &dr_azlina[3][0];
 int *pL2_31 = &dr_azlina[3][1];
 
-
-
 void schedule(void);
 void booking(void);
 void command(void);
 void info(void);
 void ticket(void);
 int check_availability(int *);
-int slot_availability(int *);
+int book_slot(int);
+void show_slot(char *, char [], int, int);
 
 int main(void) 
 {
@@ -130,9 +132,7 @@ void schedule(void)
 /* allow booking	*/
 void booking(void)
 {
-	int i, j, k;
-	char cdr_hidayati[] = "Dr._Hidayati";
-	char cdr_azlina[] = "Dr._Azlina";
+	int i;
 	char s[MAXCHAR];
 	int *pL1_00 = &dr_hidayati[0][0];
 	int *pL1_01 = &dr_hidayati[0][1];
@@ -152,91 +152,99 @@ void booking(void)
 		printf("Enter weekday: ");
 		scanf("%d", &i);
 		if (i == 1) {
-			printf("Enter a block number: ");
-			scanf("%d", &j);
-			if (j == 1) {
-				if (check_availability(pL1_01) == FALSE)
+			printf("Dr. Hidayati - Monday\n");
+			printf("Block 1: 2pm - max 4 slots\n");
+			printf("Block 2: 3pm - max 4 slots\n");
+			printf("Enter block number: ");
+			scanf("%d", &record[k].block);
+			if (record[k].block == 1) {
+				if (check_availability(pL1_01) == FALSE) {
+					record[k].block = 0;
 					booking();
+				}
 				else if (*pL1_00 == *pL1_10 == FALSE) {
 					printf("Error: Current Weekday Full\n");
+					record[k].block = 0;
 					schedule();
 					printf("Please select another weekday\n");
 					booking();
-				}
-				else {
+				} else {
 					*pL1_00 = *pL1_01 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Monday");
 					printf("Successful Booking!!\n");
 				}
-			}
-			else if (j == 2) {
-				if (check_availability(pL1_11) == FALSE)
+			} else if (record[k].block == 2) {
+				if (check_availability(pL1_11) == FALSE) {
+					record[k].block = 0;
 					booking();
+				}
 				else if (*pL1_00 == *pL1_10 == FALSE) {
 					printf("Error: Current Weekday Full\n");
+					record[k].block = 0;
 					schedule();
 					printf("Please select another weekday\n");
 					booking();
-				}
-				else {
+				} else {
 					*pL1_10 = *pL1_11 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Monday");
 					printf("Successful Booking!!\n");
 				}
-			}
-			else {
+			} else {
 				printf("Error: Unknow Block\n");
 				booking();
 			}
-		}
-		else if (i == 2) {
-			printf("Enter a block number: ");
-			scanf("%d", &j);
-			if (j == 1) {
-				if (check_availability(pL1_21) == FALSE)
+		} else if (i == 2) {
+			printf("Dr. Hidayati - Tuesday'\n");
+			printf("Block 1: 2pm - max 4 slots");
+			printf("Block 2: 3pm - max 4 slots");
+			printf("Enter block number: ");
+			scanf("%d", &record[k].block);
+			if (record[k].block == 1) {
+				if (check_availability(pL1_21) == FALSE) {
+					record[k].block = 0;
 					booking();
+				}
 				else if (*pL1_20 == *pL1_30 == FALSE) {
 					printf("Error: Current Weekday Full\n");
+					record[k].block = 0;
 					schedule();
 					printf("Please select another weekday\n");
 					booking();
-				}
-				else {
+				} else {
 					*pL1_20 = *pL1_21 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Tuesday");
 					printf("Successful Booking!!\n");
 				}
-			}
-			else if (j == 2) {
-				if (check_availability(pL1_31) == FALSE)
+			} else if (record[k].block == 2) {
+				if (check_availability(pL1_31) == FALSE) {
+					record[k].block = 0;
 					booking();
+				}
 				else if (*pL1_20 == *pL1_30 == FALSE) {
 					printf("Error: Current Weekday Full\n");
+					record[k].block = 0;
 					schedule();
 					printf("Please select another weekday\n");
 					booking();
-				}
-				else {
+				} else {
 					*pL1_30 = *pL1_31 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Tuesday");
 					printf("Successful Booking!!\n");
 				}
-			}
-			else {
+			} else {
 				printf("Error: Unknow Block\n");
 				booking();
 			}
 		}
-	}
-	else if (strcmp(s, cdr_azlina) == 0){
+	} else if (strcmp(s, cdr_azlina) == 0){
 		printf("Tuesday = 2, Wednesday = 3, Thursday = 4\n");
 		printf("Each block have 4 slot available\n");
 		printf("Tuesday have 1 block\n");
@@ -246,6 +254,8 @@ void booking(void)
 		printf("Enter weekday: ");
 		scanf("%d", &i);
 		if (i == 2) {
+			printf("Dr. Azlina - Tuesday\n");
+			printf("Default Block: 3pm - max 4 slots\n");
 			if (check_availability(pL2_01) == FALSE)
 				booking();
 			else if (*pL2_00 == FALSE) {
@@ -253,58 +263,62 @@ void booking(void)
 				schedule();
 				printf("Please select another weekday\n");
 				booking();
-			}
-			else {
+			} else {
 				*pL2_00 = *pL2_01 = FALSE;
 				info();
 				record[k].lecturer = cdr_azlina;
 				strcpy(record[k].weekday, "Tuesday");
 				printf("Successful Booking!!\n");
 			}
-		}
-		else if (i == 3) {
-			printf("Enter a block number: ");
-			scanf("%d", &j);
-			if (j == 1) {
-				if (check_availability(pL2_11) == FALSE)
+		} else if (i == 3) {
+			printf("Dr. Azlina - Wednesday\n");
+			printf("Block 1: 2pm - max 4 slots\n");
+			printf("Block 2: 3pm - max 4 slots\n");
+			printf("Enter block number: ");
+			scanf("%d", &record[k].block);
+			if (record[k].block == 1) {
+				if (check_availability(pL2_11) == FALSE) {
+					record[k].block = 0;
 					booking();
+				}
 				else if (*pL2_10 == *pL2_20 == FALSE) {
 					printf("Error: Current Weekday Full\n");
+					record[k].block = 0;
 					schedule();
 					printf("Please select another weekday\n");
 					booking();
-				}
-				else {
+				} else {
 					*pL2_10 = *pL2_11 = FALSE;
 					info();
 					record[k].lecturer = cdr_azlina;
 					strcpy(record[k].weekday, "Wednesday");
 					printf("Successful Booking!!\n");
 				}
-			}
-			else if (j == 2) {
-				if (check_availability(pL2_21) == FALSE)
+			} else if (record[k].block == 2) {
+				if (check_availability(pL2_21) == FALSE) {
+					record[k].block = 0;
 					booking();
+				}
 				else if (*pL2_10 == *pL2_20 == FALSE) {
 					printf("Error: Current Weekday Full\n");
+					record[k].block = 0;
 					schedule();
 					printf("Please select another weekday\n");
 					booking();
-				}
-				else {
+				} else {
 					*pL2_20 = *pL2_21 = FALSE;
 					info();
 					record[k].lecturer = cdr_azlina;
 					strcpy(record[k].weekday, "Wednesday");
 					printf("Successful Booking!!\n");
 				}
-			}
-			else {
+			} else {
 				printf("Error: Unknow Block\n");
 				booking();
 			}
-		}
-		else if (i == 4) {
+		} else if (i == 4) {
+			printf("Dr. Azlina - Thursday\n");
+			printf("Default Block: 3pm - max 4 slots\n");
 			if (check_availability(pL2_31) == FALSE)
 				booking();
 			else if (*pL2_30 == FALSE) {
@@ -312,21 +326,18 @@ void booking(void)
 				schedule();
 				printf("Please select another weekday\n");
 				booking();
-			}
-			else {
+			} else {
 				*pL2_30 = *pL2_31 = FALSE;
 				info();
 				record[k].lecturer = cdr_azlina;
 				strcpy(record[k].weekday, "Thursday");
 				printf("Successful Booking!!\n");
 			}
-		}
-		else {
+		} else {
 			printf("Error: Other Weekday Not Available\n");
 			booking();
 		}
-	}
-	else {
+	} else {
 		printf("Error: Unknown Lecturer\n");
 		booking();
 	}
@@ -362,19 +373,174 @@ int check_availability(int *s)
 		schedule();
 		printf("Please select another slot\n");
 		return FALSE;
-	}
-	else
+	} else
 		return TRUE;
 }
 
-int slot_availibity(int *s)
+int book_slot(int i)
 {
-	int i = 0;
+	int j = 0;
 
-	++i;
+	j++;
 
-	if (i > 4) {
-		return *s = FALSE;
+	if (j > 4)
+		return FALSE;
+	else
+		return i = j;
+}
+
+void show_slot(char *s, char t[], int i, int j)
+{
+	extern void booking(void);
+
+	if (strcmp(s, cdr_hidayati) == 0) {
+		if (t == "Monday") {
+			if (i == 1) {
+				switch (j) {
+				case 1:
+					printf("2:00pm - 2:15pm");
+					break;
+				case 2:
+					printf("2:15pm - 2:30pm");
+					break;
+				case 3:
+					printf("2:30pm - 2:45pm");
+					break;
+				case 4:
+					printf("2:45pm - 3:00pm");
+					break;
+				default:
+					printf("Error: Unknown Slot Time");
+				}
+			} else if (i == 2) {
+				switch (j) {
+				case 1:
+					printf("3:00pm - 3:15pm");
+					break;
+				case 2:
+					printf("3:15pm - 3:30pm");
+					break;
+				case 3:
+					printf("3.30pm - 3.45pm");
+					break;
+				case 4:
+					printf("3.45pm - 4:00pm");
+					break;
+				default:
+					printf("Error: Unknown Slot Time");
+				}
+			}
+		} else if (t == "Tuesday") {			
+			if (i == 1) {
+				switch (j) {
+				case 1:
+					printf("2:00pm - 2:15pm");
+					break;
+				case 2:
+					printf("2:15pm - 2:30pm");
+					break;
+				case 3:
+					printf("2:30pm - 2:45pm");
+					break;
+				case 4:
+					printf("2:45pm - 3:00pm");
+					break;
+				default:
+					printf("Error: Unknown Slot Time");
+				}
+			} else if (i == 2) {
+				switch (j) {
+				case 1:
+					printf("3:00pm - 3:15pm");
+					break;
+				case 2:
+					printf("3:15pm - 3:30pm");
+					break;
+				case 3:
+					printf("3.30pm - 3.45pm");
+					break;
+				case 4:
+					printf("3.45pm - 4:00pm");
+					break;
+				default:
+					printf("Error: Unknown Slot Time");
+				}
+			}
+		} else
+			printf("Error: Weekday Not Available");
+	} else if (strcmp(s, cdr_azlina) == 0) {
+		if (t == "Tuesday") {
+			switch (j) {
+			case 1:
+				printf("3:00pm - 3:15pm");
+				break;
+			case 2:
+				printf("3:15pm - 3:30pm");
+				break;
+			case 3:
+				printf("3:30pm - 3.45pm");
+				break;
+			case 4:
+				printf("3.45pm - 4.00pm");
+				break;
+			default:
+				printf("Error: Unknown Slot Time");
+			}
+		} else if (t == "Wednesday") {			
+			if (i == 1) {
+				switch (j) {
+				case 1:
+					printf("2:00pm - 2:15pm");
+					break;
+				case 2:
+					printf("2:15pm - 2:30pm");
+					break;
+				case 3:
+					printf("2:30pm - 2:45pm");
+					break;
+				case 4:
+					printf("2:45pm - 3:00pm");
+					break;
+				default:
+					printf("Error: Unknown Slot Time");
+				}
+			} else if (i == 2) {
+				switch (j) {
+				case 1:
+					printf("3:00pm - 3:15pm");
+					break;
+				case 2:
+					printf("3:15pm - 3:30pm");
+					break;
+				case 3:
+					printf("3.30pm - 3.45pm");
+					break;
+				case 4:
+					printf("3.45pm - 4:00pm");
+					break;
+				default:
+					printf("Error: Unknown Slot Time");
+				}
+			}
+
+		} else if (t == "Thursday") {
+			switch (j) {
+			case 1:
+				printf("3:00pm - 3:15pm");
+				break;
+			case 2:
+				printf("3.15pm - 3.30pm");
+				break;
+			case 3:
+				printf("3.30pm - 3.45pm");
+				break;
+			case 4:
+				printf("3.45pm - 4:00pm");
+				break;
+			default:
+				printf("Error: Unknown Slot Time");
+			}
+		} else
+			printf("Error: Weekday Not Available");
 	}
-	return i;
 }
