@@ -47,8 +47,8 @@ int dr_azlina[][2] = {
 		{Wed,	3},
 		{Thurs,	3},
 	};
-char cdr_hidayati[] = "Dr._Hidayati";
-char cdr_azlina[] = "Dr._Azlina";
+char cdr_hidayati[] 	= "Dr._Hidayati";
+char cdr_azlina[] 	= "Dr._Azlina";
 int *pL1_00 = &dr_hidayati[0][0];
 int *pL1_01 = &dr_hidayati[0][1];
 int *pL1_10 = &dr_hidayati[1][0];
@@ -95,6 +95,9 @@ int main(void)
 		scanf(" %c", pUsr);
 		if (*pUsr == 'c')
 			booking();
+		/*else if (*pUsr == 't')
+		 *	ticket();
+		 */
 		else if (*pUsr == 'x') {
 			printf("Exit the program.\n");
 			printf("Thank for coming!");
@@ -121,8 +124,8 @@ int main(void)
 /* command list	*/
 void command(void)
 {
-	printf("Press x then Enter to exit the program\n");
 	printf("Press c then Enter to book a ticket\n");
+	printf("Press x then Enter to exit the program\n");
 }
 
 /* print out the lecturers' consultation hour table	*/
@@ -135,16 +138,6 @@ void schedule(void)
 	printf("Dr.Azlina\tTuesday\t\t3-4pm\t\t%d\n", 4 - slotL2_tues);
 	printf("\t\tWednesday\t2-4pm\t\t%d\n", 8 - slotL2_wed1 - slotL2_wed2);
 	printf("\t\tThursday\t3-4pm\t\t%d\n\n", 4 - slotL2_thurs);
-	/*printf("\tLecturers' Consultation Hour\n\n");
-      	printf(" ---------------------------------------------\n");
-      	printf("| Dr. Hidayati\t|\tMon\t  |\t2-4pm |\n");
-      	printf("|\t\t|\tTues\t  |\t2-4pm |\n");
-      	printf("|---------------|-----------------|-----------|\n");
-      	printf("| Dr. Azlina\t|\tTues\t  |\t3-4pm |\n");
-      	printf("|\t\t|\tWed\t  |\t2-4pm |\n");
-      	printf("|\t\t|\tThur\t  |\t3-4pm |\n");
-      	printf(" ---------------------------------------------\n\n");
-	*/
 }
 
 /* allow booking	*/
@@ -177,8 +170,7 @@ void booking(void)
 				if (check_availability(pL1_01, slotL1_mon1) == FALSE) {
 					record[k].block = 0;
 					booking();
-				}
-				else if (*pL1_00 == *pL1_10 == FALSE) {
+				} else if (*pL1_00 == *pL1_10 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
 					schedule();
@@ -227,8 +219,7 @@ void booking(void)
 				if (check_availability(pL1_21, slotL1_tues1) == FALSE) {
 					record[k].block = 0;
 					booking();
-				}
-				else if (*pL1_20 == *pL1_30 == FALSE) {
+				} else if (*pL1_20 == *pL1_30 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
 					schedule();
@@ -247,8 +238,7 @@ void booking(void)
 				if (check_availability(pL1_31, slotL1_tues2) == FALSE) {
 					record[k].block = 0;
 					booking();
-				}
-				else if (*pL1_20 == *pL1_30 == FALSE) {
+				} else if (*pL1_20 == *pL1_30 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
 					schedule();
@@ -285,8 +275,7 @@ void booking(void)
 			if (check_availability(pL2_01, slotL2_tues) == FALSE) {
 				record[k].block = 0;
 				booking();
-			}
-			else if (*pL2_00 == FALSE) {
+			} else if (*pL2_00 == FALSE) {
 				printf("Error: Current Weekday Full\n");
 				schedule();
 				printf("Please select another weekday\n");
@@ -310,8 +299,7 @@ void booking(void)
 				if (check_availability(pL2_11, slotL2_wed1) == FALSE) {
 					record[k].block = 0;
 					booking();
-				}
-				else if (*pL2_10 == *pL2_20 == FALSE) {
+				} else if (*pL2_10 == *pL2_20 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
 					schedule();
@@ -330,8 +318,7 @@ void booking(void)
 				if (check_availability(pL2_21, slotL2_wed2) == FALSE) {
 					record[k].block = 0;
 					booking();
-				}
-				else if (*pL2_10 == *pL2_20 == FALSE) {
+				} else if (*pL2_10 == *pL2_20 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
 					schedule();
@@ -356,8 +343,7 @@ void booking(void)
 			if (check_availability(pL2_31, slotL2_thurs) == FALSE) {
 				record[k].block = 0;
 				booking();
-			}
-			else if (*pL2_30 == FALSE) {
+			} else if (*pL2_30 == FALSE) {
 				printf("Error: Current Weekday Full\n");
 				schedule();
 				printf("Please select another weekday\n");
@@ -568,6 +554,7 @@ void show_slot(char *s, char t[], int i, int j)
 			case 2:
 				printf("3.15pm - 3.30pm\n");
 				break;
+	printf("Press t then Enter to display your ticket\n");
 			case 3:
 				printf("3.30pm - 3.45pm\n");
 				break;
