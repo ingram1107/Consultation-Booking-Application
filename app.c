@@ -135,7 +135,7 @@ void schedule(void)
 	printf("Lecturer\tWeekday\t\tTime\t\tSlot Available\n");
 	printf("Dr. Hidayati\tMonday\t\t2-4pm\t\t%d\n", 8 - slotL1_mon1 - slotL1_mon2);
 	printf("\t\tTuesday\t\t2-4pm\t\t%d\n",8 - slotL1_tues1 - slotL1_tues2);
-	printf("Dr.Azlina\tTuesday\t\t3-4pm\t\t%d\n", 4 - slotL2_tues);
+	printf("Dr. Azlina\tTuesday\t\t3-4pm\t\t%d\n", 4 - slotL2_tues);
 	printf("\t\tWednesday\t2-4pm\t\t%d\n", 8 - slotL2_wed1 - slotL2_wed2);
 	printf("\t\tThursday\t3-4pm\t\t%d\n\n", 4 - slotL2_thurs);
 }
