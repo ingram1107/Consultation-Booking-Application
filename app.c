@@ -177,7 +177,8 @@ void booking(void)
 					printf("Please select another weekday\n");
 					booking();
 				} else {
-					*pL1_00 = FALSE;
+					if (*pL1_01 >= 4)
+						*pL1_00 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Monday");
@@ -197,7 +198,8 @@ void booking(void)
 					printf("Please select another weekday\n");
 					booking();
 				} else {
-					*pL1_10 = FALSE;
+					if (*pL1_11 >= 4)
+						*pL1_10 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Monday");
@@ -226,7 +228,8 @@ void booking(void)
 					printf("Please select another weekday\n");
 					booking();
 				} else {
-					*pL1_20 = FALSE;
+					if (*pL1_21 >= 4)
+						*pL1_20 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Tuesday");
@@ -245,7 +248,8 @@ void booking(void)
 					printf("Please select another weekday\n");
 					booking();
 				} else {
-					*pL1_30 = FALSE;
+					if (*pL1_31 >= 4)
+						*pL1_30 = FALSE;
 					info();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Tuesday");
@@ -281,7 +285,8 @@ void booking(void)
 				printf("Please select another weekday\n");
 				booking();
 			} else {
-				*pL2_00 = FALSE;
+				if (*pL2_01 >= 4)
+					*pL2_00 = FALSE;
 				info();
 				record[k].lecturer = cdr_azlina;
 				strcpy(record[k].weekday, "Tuesday");
@@ -306,7 +311,8 @@ void booking(void)
 					printf("Please select another weekday\n");
 					booking();
 				} else {
-					*pL2_10 = FALSE;
+					if (*pL2_11 >= 4)
+						*pL2_10 = FALSE;
 					info();
 					record[k].lecturer = cdr_azlina;
 					strcpy(record[k].weekday, "Wednesday");
@@ -325,7 +331,8 @@ void booking(void)
 					printf("Please select another weekday\n");
 					booking();
 				} else {
-					*pL2_20 = FALSE;
+					if (*pL2_21 >= 4)
+						*pL2_20 = FALSE;
 					info();
 					record[k].lecturer = cdr_azlina;
 					strcpy(record[k].weekday, "Wednesday");
@@ -349,7 +356,8 @@ void booking(void)
 				printf("Please select another weekday\n");
 				booking();
 			} else {
-				*pL2_30 = FALSE;
+				if (*pL2_31 >= 4)
+					*pL2_30 = FALSE;
 				info();
 				record[k].lecturer = cdr_azlina;
 				strcpy(record[k].weekday, "Thursday");
