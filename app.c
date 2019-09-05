@@ -74,22 +74,22 @@ int slotL2_wed1		= 0;
 int slotL2_wed2		= 0;
 int slotL2_thurs	= 0;
 
-void schedule(void);
-void booking(void);
+void display_slot(void);
+void book_slot(void);
 void command(void);
-void info(void);
-void ticket(void);
+void stud_rec(void);
+void display_ticket(void);
 int check_availability(int *, int);
 void show_slot(char *, char [], int, int);
 
-int main(void) 
+int main(void)
 {
     	char usr;
 	char *pUsr = &usr;
 
 	record[k].block = 0;
-	
-    	do {    
+
+    	do {
 		schedule();
 		command();
 		scanf(" %c", pUsr);
@@ -108,7 +108,7 @@ int main(void)
 		printf("\n");
 	} while (*pUsr != 'x')   /* exit the program when user input 'x' */
 		;
-    	
+
 	/*
     	 *  Lecturers' available consultation hour schedule
     	 *
@@ -129,7 +129,7 @@ void command(void)
 }
 
 /* print out the lecturers' consultation hour table	*/
-void schedule(void)
+void display_slot(void)
 {
 	printf("\tLecturers' Consultation Hour\n\n");
 	printf("Lecturer\tWeekday\t\tTime\t\tSlot Available\n");
@@ -141,7 +141,7 @@ void schedule(void)
 }
 
 /* allow booking	*/
-void booking(void)
+void book_slot(void)
 {
 	int i;
 	char s[MAXCHAR];
@@ -380,7 +380,7 @@ void booking(void)
 }
 
 /* scan user input	*/
-void info(void)
+void stud_rec(void)
 {
 	printf("Enter your name (Use underscore to represent white spaces): ");
 	scanf("%s", record[k].name);
@@ -391,14 +391,14 @@ void info(void)
 }
 
 /* display user's ticket	*/
-void ticket(void)
+void display_ticket(void)
 {
 	printf("Name\tStudent ID\tMajor\n");
 	printf("%s\t%s\t%s\n\n", record[k].name, record[k].stdid, record[k].major);
 	printf("Booked Schedule:\n");
 	printf("Lecturer\tWeekday\tTime\n");
 	printf("%s\t%s\t", record[k].lecturer, record[k].weekday);
-	show_slot(record[k].lecturer, record[k].weekday, record[k].block, record[k].slot);	
+	show_slot(record[k].lecturer, record[k].weekday, record[k].block, record[k].slot);
 }
 
 /* check slot availability		*/
@@ -461,7 +461,7 @@ void show_slot(char *s, char t[], int i, int j)
 					printf("Error: Unknown Slot Time\n");
 				}
 			}
-		} else if (strcmp(t, tues) == 0) {			
+		} else if (strcmp(t, tues) == 0) {
 			if (i == 1) {
 				switch (j) {
 				case 1:
@@ -517,7 +517,7 @@ void show_slot(char *s, char t[], int i, int j)
 			default:
 				printf("Error: Unknown Slot Time\n");
 			}
-		} else if (strcmp(t, wed) == 0) {			
+		} else if (strcmp(t, wed) == 0) {
 			if (i == 1) {
 				switch (j) {
 				case 1:
