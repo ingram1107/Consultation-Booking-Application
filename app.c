@@ -90,11 +90,11 @@ int main(void)
 	record[k].block = 0;
 
     	do {
-		schedule();
+		display_slot();
 		command();
 		scanf(" %c", pUsr);
 		if (*pUsr == 'c')
-			booking();
+			book_slot();
 		/*else if (*pUsr == 't')
 		 *	ticket();
 		 */
@@ -169,17 +169,17 @@ void book_slot(void)
 			if (record[k].block == 1) {
 				if (check_availability(pL1_01, slotL1_mon1) == FALSE) {
 					record[k].block = 0;
-					booking();
+					book_slot();
 				} else if (*pL1_00 == *pL1_10 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
-					schedule();
+					display_slot();
 					printf("Please select another weekday\n");
-					booking();
+					book_slot();
 				} else {
 					if (*pL1_01 >= 4)
 						*pL1_00 = FALSE;
-					info();
+					stud_rec();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Monday");
 					slotL1_mon1++;
@@ -189,18 +189,18 @@ void book_slot(void)
 			} else if (record[k].block == 2) {
 				if (check_availability(pL1_11, slotL1_mon2) == FALSE) {
 					record[k].block = 0;
-					booking();
+					book_slot();
 				}
 				else if (*pL1_00 == *pL1_10 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
-					schedule();
+					display_slot();
 					printf("Please select another weekday\n");
-					booking();
+					book_slot();
 				} else {
 					if (*pL1_11 >= 4)
 						*pL1_10 = FALSE;
-					info();
+					stud_rec();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Monday");
 					slotL1_mon2++;
@@ -209,7 +209,7 @@ void book_slot(void)
 				}
 			} else {
 				printf("Error: Unknow Block\n");
-				booking();
+				book_slot();
 			}
 		} else if (i == 2) {
 			printf("Dr. Hidayati - Tuesday\n");
@@ -220,17 +220,17 @@ void book_slot(void)
 			if (record[k].block == 1) {
 				if (check_availability(pL1_21, slotL1_tues1) == FALSE) {
 					record[k].block = 0;
-					booking();
+					book_slot();
 				} else if (*pL1_20 == *pL1_30 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
-					schedule();
+					display_slot();
 					printf("Please select another weekday\n");
-					booking();
+					book_slot();
 				} else {
 					if (*pL1_21 >= 4)
 						*pL1_20 = FALSE;
-					info();
+					stud_rec();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Tuesday");
 					slotL1_tues1++;
@@ -240,17 +240,17 @@ void book_slot(void)
 			} else if (record[k].block == 2) {
 				if (check_availability(pL1_31, slotL1_tues2) == FALSE) {
 					record[k].block = 0;
-					booking();
+					book_slot();
 				} else if (*pL1_20 == *pL1_30 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
-					schedule();
+					display_slot();
 					printf("Please select another weekday\n");
-					booking();
+					book_slot();
 				} else {
 					if (*pL1_31 >= 4)
 						*pL1_30 = FALSE;
-					info();
+					stud_rec();
 					record[k].lecturer = cdr_hidayati;
 					strcpy(record[k].weekday, "Tuesday");
 					slotL1_tues2++;
@@ -259,7 +259,7 @@ void book_slot(void)
 				}
 			} else {
 				printf("Error: Unknow Block\n");
-				booking();
+				book_slot();
 			}
 		}
 	} else if (strcmp(s, cdr_azlina) == 0){
@@ -278,16 +278,16 @@ void book_slot(void)
 			printf("Default Block: 3pm - max 4 slots\n");
 			if (check_availability(pL2_01, slotL2_tues) == FALSE) {
 				record[k].block = 0;
-				booking();
+				book_slot();
 			} else if (*pL2_00 == FALSE) {
 				printf("Error: Current Weekday Full\n");
-				schedule();
+				display_slot();
 				printf("Please select another weekday\n");
-				booking();
+				book_slot();
 			} else {
 				if (*pL2_01 >= 4)
 					*pL2_00 = FALSE;
-				info();
+				stud_rec();
 				record[k].lecturer = cdr_azlina;
 				strcpy(record[k].weekday, "Tuesday");
 				slotL2_tues++;
@@ -303,17 +303,17 @@ void book_slot(void)
 			if (record[k].block == 1) {
 				if (check_availability(pL2_11, slotL2_wed1) == FALSE) {
 					record[k].block = 0;
-					booking();
+					book_slot();
 				} else if (*pL2_10 == *pL2_20 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
-					schedule();
+					display_slot();
 					printf("Please select another weekday\n");
-					booking();
+					book_slot();
 				} else {
 					if (*pL2_11 >= 4)
 						*pL2_10 = FALSE;
-					info();
+					stud_rec();
 					record[k].lecturer = cdr_azlina;
 					strcpy(record[k].weekday, "Wednesday");
 					slotL2_wed1++;
@@ -323,17 +323,17 @@ void book_slot(void)
 			} else if (record[k].block == 2) {
 				if (check_availability(pL2_21, slotL2_wed2) == FALSE) {
 					record[k].block = 0;
-					booking();
+					book_slot();
 				} else if (*pL2_10 == *pL2_20 == FALSE) {
 					printf("Error: Current Weekday Full\n");
 					record[k].block = 0;
-					schedule();
+					display_slot();
 					printf("Please select another weekday\n");
-					booking();
+					book_slot();
 				} else {
 					if (*pL2_21 >= 4)
 						*pL2_20 = FALSE;
-					info();
+					stud_rec();
 					record[k].lecturer = cdr_azlina;
 					strcpy(record[k].weekday, "Wednesday");
 					slotL2_wed2++;
@@ -342,23 +342,23 @@ void book_slot(void)
 				}
 			} else {
 				printf("Error: Unknow Block\n");
-				booking();
+				book_slot();
 			}
 		} else if (i == 4) {
 			printf("Dr. Azlina - Thursday\n");
 			printf("Default Block: 3pm - max 4 slots\n");
 			if (check_availability(pL2_31, slotL2_thurs) == FALSE) {
 				record[k].block = 0;
-				booking();
+				book_slot();
 			} else if (*pL2_30 == FALSE) {
 				printf("Error: Current Weekday Full\n");
-				schedule();
+				display_slot();
 				printf("Please select another weekday\n");
-				booking();
+				book_slot();
 			} else {
 				if (*pL2_31 >= 4)
 					*pL2_30 = FALSE;
-				info();
+				stud_rec();
 				record[k].lecturer = cdr_azlina;
 				strcpy(record[k].weekday, "Thursday");
 				slotL2_thurs++;
@@ -367,15 +367,15 @@ void book_slot(void)
 			}
 		} else {
 			printf("Error: Other Weekday Not Available\n");
-			booking();
+			book_slot();
 		}
 	} else {
 		printf("Error: Unknown Lecturer\n");
-		booking();
+		book_slot();
 	}
 	printf("\n");
 	printf("Please check your ticket's information.\n\n");
-	ticket();
+	display_ticket();
 	k++;
 }
 
@@ -408,7 +408,7 @@ int check_availability(int *s, int i)
 		*s = FALSE;
 	if (*s == FALSE) {
 		printf("Error: Slot Full\n");
-		schedule();
+		display_slot();
 		printf("Please select another slot\n");
 		return FALSE;
 	} else
