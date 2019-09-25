@@ -167,7 +167,7 @@ int book_slot(void)
 	printf("\n");
 
 	if (strcmp(lecname, lec1) == 0) {
-		printf("\tDr. Hidyati Session\n");
+		printf("\tDr. Hidayati Session\n");
 		printf("Weekday\t\tTime\n");
 		printf("Monday\t\t2-4pm\n");
 		printf("Tuesday\t\t2-4pm\n");
@@ -341,7 +341,7 @@ int display_ticket(void)
 	}
 
 	if ((ptr->lecturer) == NULL) {
-		printf("Error: Ticket doesn't exit\n");
+		printf("Error: Ticket doesn't exist\n");
 		return 1;
 	}
 
@@ -433,6 +433,7 @@ int schedule(FILE *fptr)
 	fprintf(fptr , "%s\t%s\t%s\t%s\t%s", ptr->stdid, ptr->name, ptr->major, ptr->weekday, ptr->time);
 
 	fclose(fptr);
+	return 0;
 }
 
 /*int store(int s[][MAX], FILE *fptr)
