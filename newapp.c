@@ -468,6 +468,7 @@ int clear(void)
 	printf("\n\tClear Option\n");
 	printf("1. dr hidayati.txt\n");
 	printf("2. dr azlina.txt\n");
+	printf("3. ticket.txt\n");
 	printf("Please enter the file's full name you want to clear: ");
 	scanf("%c", &temp);
 	scanf("%[^\n]", file);
