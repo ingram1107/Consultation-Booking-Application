@@ -58,6 +58,7 @@ char *show_slot(int);
 int check(int [][MAX], int);
 int calc(int [][MAX], int);
 int schedule(FILE *);
+int clear(void);
 //int store(int [][MAX], FILE *);
 
 int main(void)
@@ -75,6 +76,7 @@ void command(char *s)
 {
 	printf("\n\tMain Menu\n");
 	printf("b -> Book Ticket\n");
+	printf("c -> Clear File's Content\n");
 	printf("s -> Display Available Slot\n");
 	printf("t -> Display Ticket\n");
 	printf("x -> Exit Program\n\n");
@@ -83,6 +85,9 @@ void command(char *s)
 	switch (*s) {
 	case 'b':
 		book_slot();
+		break;
+	case 'c':
+		clear();
 		break;
 	case 's':
 		display_slot();
@@ -454,3 +459,36 @@ int schedule(FILE *fptr)
 	fclose(fptr);
 	return 0;
 }*/
+
+int clear(void)
+{
+	char temp, opt;
+	char file[20];
+
+	printf("\n\tClear Option\n");
+	printf("1. dr hidayati.txt\n");
+	printf("2. dr azlina.txt\n");
+	printf("Please enter the file's full name you want to clear: ");
+	scanf("%c", &temp);
+	scanf("%[^\n]", file);
+	printf("Do you want to clear this file? (y/n)");
+	scanf("%c", &temp);
+	printf(" ");
+	scanf("%[^\n]", &opt);
+
+	if (opt == 'y' || opt == 'Y') {
+		FILE *fptr = fopen(file, "w");
+		if (fptr == NULL) {
+			printf("Error: Fail to open \'%s\'\n", file);
+			return 1;
+		}
+		fclose(fptr);
+		return 0;
+	} else if (opt == 'n' || opt == 'N') {
+		printf("Exit from Clear Menu\n");
+		return 0;
+	} else {
+		printf("Error: Unknown option");
+		return 1;
+	}
+}
